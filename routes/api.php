@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| API Routes//SancSoc
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
