@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +33,8 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+//Oauth
+Route::get('login/{provider}', [OAuthController::class, 'redirectToProvider']);
+Route::get('login/{provider}/callback', [OAuthController::class, 'handleProviderCallback']);
