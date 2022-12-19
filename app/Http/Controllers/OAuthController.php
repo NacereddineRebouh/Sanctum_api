@@ -64,7 +64,7 @@ class OAuthController extends Controller
             ]
         );
 
-        $token = $userCreated->createToken('token-name')->plainTextToken;
+        $token = $userCreated->createToken('myToken')->plainTextToken;
 
         return response()->json($userCreated, 200, ['Access-Token' => $token]);
     }
