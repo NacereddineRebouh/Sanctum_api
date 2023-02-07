@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Laravel\Socialite\Facades\Socialite;
 
 class OAuthController extends Controller
@@ -15,7 +16,6 @@ class OAuthController extends Controller
      * @param $provider
      * @return JsonResponse
      */
-
     public function redirectToProvider($provider)
     {
         $validated=$this->validateProvider($provider);
@@ -23,7 +23,10 @@ class OAuthController extends Controller
             return $validated;
         }
 
-        return Socialite::driver($provider)->stateless()->redirect();
+        // return Socialite::driver($provider)->stateless()->redirect();
+        return response()->json([
+            'url' => Socialite::driver($provider)->stateless()->redirect()->getTargetUrl(),
+        ]);
     }
 
 
@@ -56,7 +59,7 @@ class OAuthController extends Controller
                 'status' => true,
             ]
         );
-
+	
         $userCreated->providers()->updateOrCreate(
             [
                 'provider' => $provider,
@@ -66,7 +69,19 @@ class OAuthController extends Controller
 
         $token = $userCreated->createToken('myToken')->plainTextToken;
 
-        return response()->json($userCreated, 200, ['Access-Token' => $token]);
+        $cookie=Cookie::make(
+            'Access-Token',
+            $token,
+            14400, // time to expire
+            null,
+            null,
+            false,
+            true,
+            false,
+            'none'//same-site   <-----
+        );
+		// ->withCookie($cookie
+        return response(['AccessToken' => $token,"user"=>$userCreated], 201);
     }
 
     /**
