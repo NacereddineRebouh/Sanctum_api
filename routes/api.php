@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes//Sanc & Socialite 
+ API Routes//Sanc & Socialite 
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
