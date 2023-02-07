@@ -7,4 +7,4 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Sesssion Based Auth with Sanctum & OAuth with socialite
+## SesssionBased Auth with Sanctum & OAuth with socialite
